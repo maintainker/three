@@ -1,0 +1,80 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); 
+
+body:lang(en) {
+  font-family: 'Roboto', sans-serif;
+}
+
+body:lang(ja) {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.uiMgr-Toast-Container::after, .uiMgr-Toast-Container::before{
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  /* 각도에 따라 색상이 변하는 원뿔형 그라데이션 배경을 설정 */
+  background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+  top: 50%; /* 가상 요소를 부모 요소의 중앙에 배치 */
+  left: 50%;  
+  translate: -50% -50%; /* 가상 요소를 중앙으로 이동 */  
+  z-index: -1; /* 가상 요소를 부모 요소 뒤에 배치 */
+  padding: 0;
+  border-radius: 5px;  
+  animation: 3s spin linear infinite; /* 3초 동안 선형으로 무한히 회전하는 애니메이션을 적용 */
+}
+
+.uiMgr-Toast-Container::before{
+  filter: blur(1.5rem); /* 가상 요소에 1.5rem의 블러 효과를 적용 */
+  opacity: 0.5; /* 가상 요소의 투명도를 0.5로 설정 */
+}
+
+@property --angle { /* --angle 사용자 정의 속성을 정의 */
+  syntax: "<angle>"; /* 사용자 정의 속성의 값이 각도임을 정의 */
+  initial-value: 0deg; /* 사용자 정의 속성의 초기값을 0deg로 설정 */
+  inherits: false; /* 사용자 정의 속성이 상속되지 않음을 정의 */
+}
+@keyframes spin{ /* spin 애니메이션을 정의 */
+  from{
+    --angle: 0deg; /* --angle의 값을 0deg로 설정 */
+  }
+  to{
+    --angle: 360deg; /* --angle의 값을 360deg로 설정 */
+  }
+}
+
+/* GUI & (폰트 설정 & lil 포함)  */
+html, body {
+  font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+.lil-gui {
+  --background-color: #262626;
+  --title-background-color: #686868;
+  --number-color:#ef9b00;
+}
+
+.lil-gui:lang(ko) {
+  --font-family: 'Noto Sans KR', sans-serif;
+}
+
+.lil-gui:lang(ja) {
+  --font-family: 'Noto Sans JP', sans-serif;
+}
+
+.lil-gui .root>.title{
+  background: #414141
+}
+
+#cityWowGui{ 
+  top: 48px;
+  background-color: #8f8f8f;
+  z-index: 1001;
+}
+
+/* GUI 내부 select (전체 크기에 주의하세요) */
+#cityWowGui .controller .display{
+  width: 122px;
+}

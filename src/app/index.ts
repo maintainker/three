@@ -1,8 +1,3 @@
-function test() {
-  console.log("app inner");
-  return "app return";
-}
+const app: Record<string, unknown> = {};
 
-console.log("app outer");
-
-export default test;
+export default app;

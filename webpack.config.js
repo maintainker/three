@@ -2,10 +2,12 @@ import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import { transpile } from "typescript";
 
 const __dirname = path.resolve();
 
 const config = {
+  mode: process.env.NODE_ENV || "development",
   entry: "./src/index.ts",
   output: {
     filename: "bundle.[contenthash].js",
@@ -18,7 +20,12 @@ const config = {
     rules: [
       {
         test: /\.ts$/,
-        use: "ts-loader",
+        use: {
+          loader: "ts-loader",
+          options: {
+            transpileOnly: true,
+          },
+        },
         exclude: /node_modules/,
       },
     ],
@@ -28,6 +35,7 @@ const config = {
     new HtmlWebpackPlugin({
       template: "./public/index.html",
       filename: "index.html",
+      inject: "body",
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -43,7 +51,7 @@ const config = {
   ],
   devtool: "source-map",
   devServer: {
-    static: path.join(__dirname, "build"), // contentBase 대신 static 사용
+    static: path.join(__dirname, "build"),
     compress: true,
     port: 3100,
     open: true,
